@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaperNet</title>
+<link rel="icon" type="image/x-icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <h1 class="wordmark">PaperNet</h1>
+    <form id="search-form" class="search-slip" autocomplete="off">
+      <input id="keyword-input" type="text" placeholder="search a topic…" aria-label="Research topic" required>
+      <button type="button" id="filter-toggle" class="icon-btn" aria-label="Filters">▤</button>
+      <button type="submit" class="stamp-btn"><span>Search</span></button>
+    </form>
+    <button id="settings-toggle" class="icon-btn" aria-label="Settings">⚙</button>
+  </header>
+
+  <button id="chat-toggle" class="stamp-btn chat-toggle" aria-label="Discuss these results with AI">Ask AI</button>
+
+  <div id="filter-popover" class="filter-popover" aria-hidden="true">
+    <label>From year <input type="number" id="filter-min-year" placeholder="e.g. 2020" min="1900" max="2100"></label>
+    <label>To year <input type="number" id="filter-max-year" placeholder="e.g. 2025" min="1900" max="2100"></label>
+    <label>Max papers shown <input type="number" id="filter-max-nodes" placeholder="e.g. 40" min="2" max="300"></label>
+    <label>Similarity threshold <input type="number" id="filter-threshold" placeholder="0.62 (default)" min="0" max="1" step="0.01"></label>
+    <button type="button" id="filter-clear" class="text-btn">Clear filters</button>
+  </div>
+
+  <div class="workspace">
+    <div id="graph-wrap" class="graph-wrap">
+      <div id="graph">
+        <p class="empty-state">Enter a topic to begin mapping its literature.</p>
+      </div>
+
+      <div class="legend">
+        <span class="legend-item"><i class="line cites"></i> cites / cited by</span>
+        <span class="legend-item"><i class="line semantic"></i> semantically close</span>
+        <button type="button" id="toggle-all-edges" class="text-btn legend-toggle">Show all connections</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </div>
+
+    <aside id="chat-panel" class="chat-panel" aria-hidden="true">
+      <div class="chat-header">
+        <span>Discuss this net</span>
+        <button id="chat-close" class="close-btn" aria-label="Close chat">×</button>
+      </div>
+      <div id="chat-messages" class="chat-messages">
+        <p class="chat-hint">Search a topic first, then ask about what's on screen.</p>
+      </div>
+      <form id="chat-form" class="chat-form" autocomplete="off">
+        <input id="chat-input" type="text" placeholder="ask about these papers…" aria-label="Message">
+        <button type="submit" class="chat-send" aria-label="Send">→</button>
+      </form>
+    </aside>
+  </div>
+
+  <aside id="detail-panel" class="detail-panel" aria-hidden="true">
+    <button id="close-panel" class="close-btn" aria-label="Close paper detail">×</button>
+    <div id="detail-content"></div>
+  </aside>
+
+  <div id="settings-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <button id="settings-close" class="close-btn" aria-label="Close settings">×</button>
+      <h2 id="settings-title" class="modal-title">Settings</h2>
+      <p class="modal-sub">Stored locally in your database. Leave a field blank to keep its current value.</p>
+      <form id="settings-form">
+        <label>OpenAlex API key <span class="hint" id="hint-openalex"></span>
+          <input type="password" name="openalex_api_key" placeholder="paste key…" autocomplete="off">
+        </label>
+        <label>AI provider
+          <select name="ai_provider">
+            <option value="">— unset —</option>
+            <option value="anthropic">Anthropic</option>
+            <option value="openai">OpenAI</option>
+            <option value="deepseek">Deepseek</option>
+          </select>
+        </label>
+        <label>AI model <span class="hint" id="hint-model"></span>
+          <input type="text" name="ai_model" placeholder="e.g. claude-sonnet-4-5, gpt-4o-mini" autocomplete="off">
+        </label>
+        <label>AI API key <span class="hint" id="hint-ai-key"></span>
+          <input type="password" name="ai_api_key" placeholder="paste key…" autocomplete="off">
+        </label>
+        <button type="submit" class="stamp-btn">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

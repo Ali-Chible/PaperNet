@@ -1,0 +1,33 @@
+{
+  "name": "papernet",
+  "version": "1.0.0",
+  "description": "PaperNet is a platform where users enter keywords of research topics and result shows them a full connected net starting from the most relevant paper which is connected to other papers that at the same time are connected to others respectively like a spider net, which allows people expand their knowledge on the topic they choose, which is especially useful for researchers and phd students to get started with their research study.",
+  "main": "src/app.js",
+  "bin": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "keywords": [
+    "research",
+    "papers"
+  ],
+  "author": "Ali Chible",
+  "license": "ISC",
+  "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.22.0",
+    "pgvector": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "pkg": {
+    "assets": [
+      "node_modules/onnxruntime-node/bin/**/*",
+      "public/**/*",
+      "src/db/schema.sql"
+    ]
+  }
+}

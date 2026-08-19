@@ -1,0 +1,17 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: papernet-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: papernet
+      POSTGRES_PASSWORD: papernet_dev_password
+      POSTGRES_DB: papernet
+    ports:
+      - "5432:5432"
+    volumes:
+      - papernet_pgdata:/var/lib/postgresql/data
+      - ./src/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+
+volumes:
+  papernet_pgdata:
