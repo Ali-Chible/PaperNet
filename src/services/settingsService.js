@@ -5,4 +5,4 @@ async function resolve(dbKey,envVarName){
     if (dbValue) return dbValue;
     return process.env[envVarName] || null;
 }
-module.exports = { resolve, ...require('../models/settingsModel') };
+module.exports = { resolve };
