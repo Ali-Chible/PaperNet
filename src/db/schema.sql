@@ -41,7 +41,7 @@ Create Table search_queries (
     similarity          real,                       
     searched_at         timestamptz default now(),
     net_json            JSONB,
-    net_built_at        timestamptz,
+    net_built_at        timestamptz
 );
 Create Table dead_references (
     openalex_id   varchar(50) primary key,

@@ -8,7 +8,7 @@ async function resolvePaperId(openalexId){
     const existing = await paperModel.findByOpenAlexId(openalexId);
     if (existing) return existing.id;
 
-    if(await deadReferenceModel.isDead(openalexid)){
+    if(await deadReferenceModel.isDead(openalexId)){
         throw new Error(`${openalexId} is a dead reference`);
     }
     try{

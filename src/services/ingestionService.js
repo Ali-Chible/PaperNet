@@ -5,9 +5,8 @@ const { searchWorks, parseWork } = require('./openAlexService');
 const { embedText } = require('./embeddingService');
 
 async function ingestWork(parsedWork) {
-  if(parsedWork.abstract){
-    embedding= await embedText(parsedWork.abstract);
-  } else embedding=null;
+  const embedding = parsedWork.abstract ? await embedText(parsedWork.abstract) : null;
+
   const paperId = await paperModel.createPaper({
     openalexId: parsedWork.openalexId,
     doi: parsedWork.doi,
