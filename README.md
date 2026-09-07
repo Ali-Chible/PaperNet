@@ -2,6 +2,8 @@
 
 PaperNet is a research tool that draws a net of research papers for any topic. It uses OpenAlex to fetch papers, finds the best match by cosine similarity (adjustable value in gui) and connects other paper that either cites/cited by it or are close enough in abstract similarity. You can chat with A.I. Model that has access to the net built.
 
+![PaperNet Screenshot](PaperNetExample.png)
+
 ## How it works
 
 1. You search a keyword. PaperNet embeds it, checks Postgres/pgvector for a locally cached match above a similarity threshold, and falls back to querying [OpenAlex](https://openalex.org/) for a fresh candidate if nothing local is good enough.
@@ -55,12 +57,6 @@ npm start
 
 By default it's available at `http://localhost:3000`.
 
-For development with auto-restart on file changes:
-
-```bash
-npx nodemon src/app.js
-```
-
 ## Configuration
 
 Two optional integrations: an AI provider for the chat feature, and an OpenAlex API key (required as of Feb 2026 per OpenAlex's updated ToS), can be set either via `.env` or, at runtime, through the in-app **Settings** panel. Settings entered in the UI are stored in the database and take priority over the `.env` values if both are present.
@@ -105,8 +101,3 @@ Two optional integrations: an AI provider for the chat feature, and an OpenAlex 
     ├── models/               # Direct DB access
     └── utils/               # Small shared helpers
 ```
-
-## Known limitations
-
-- Citation edges between neighbor papers only reflect citations already resolved locally, the net doesn't fetch fresh citation data for every neighbor on every search, to keep searches fast. It gets richer as more papers get cross-resolved over time.
-- Local embeddings run through `onnxruntime-node` (via `@huggingface/transformers`), which ships platform-specific native binaries. This is fine for `npm start`, but matters if you ever package the app as a standalone executable, native addons can't be bundled into a single file and need to travel alongside it.
