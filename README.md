@@ -2,7 +2,7 @@
 
 PaperNet is a research tool that draws a net of research papers for any topic. It uses OpenAlex to fetch papers, finds the best match by cosine similarity (adjustable value in gui) and connects other paper that either cites/cited by it or are close enough in abstract similarity. You can chat with A.I. Model that has access to the net built.
 
-![PaperNet Screenshot](PaperNetExample.png)
+<img width="1920" height="1080" alt="PaperNetExample" src="https://github.com/user-attachments/assets/078ffd73-c0ad-48bc-8e6c-1cf4364e0d87" />
 
 ## How it works
 
